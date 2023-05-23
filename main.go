@@ -13,17 +13,18 @@ import (
 )
 
 var (
-	debug      bool
-	help       bool
-	listenPort int
+	debug      = false
+	help       = false
+	listenPort = 8080
 	rpAddr     = "https://github.com"
 	rpURL      *url.URL
 )
 
 func main() {
-	flag.IntVar(&listenPort, "port", 8080, "listen tcp port number")
-	flag.BoolVar(&debug, "debug", false, "log debug messages")
-	flag.BoolVar(&help, "help", false, "show this usage text")
+	flag.IntVar(&listenPort, "port", listenPort, "listen tcp port number")
+	flag.StringVar(&rpAddr, "remote", rpAddr, "remote URL")
+	flag.BoolVar(&debug, "debug", debug, "log debug messages")
+	flag.BoolVar(&help, "help", help, "show this usage text")
 	flag.Parse()
 
 	if help || len(flag.Args()) > 1 {

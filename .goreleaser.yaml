@@ -8,13 +8,35 @@ builds:
       - CGO_ENABLED=0
     goos:
       - linux
+    goarch:
+      - amd64
+
+nfpms:
+  - id: svnproxy
+    package_name: svnproxy
+    vendor: John Jeffery
+    homepage: https://github.com/jjeffery/svnproxy
+    maintainer: John Jeffery <jjeffery@sp.com.au>
+    description: |-
+      HTTP reverse proxy for a Subversion server.
+    license: Apache 2.0
+    formats:
+      - deb
+    release: "1"
+    section: default
+
+    contents:
+      - src: ./svnproxy.service
+        dst: /lib/systemd/system/svnproxy.service
+        file_info:
+          mode: 0555
 
 archives:
   - format: tar.gz
     # this name template makes the OS and Arch compatible with the results of uname.
     name_template: >-
       {{ .ProjectName }}_
-      {{- title .Os }}_
+      {{- .Os }}_
       {{- if eq .Arch "amd64" }}x86_64
       {{- else if eq .Arch "386" }}i386
       {{- else }}{{ .Arch }}{{ end }}

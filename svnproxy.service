@@ -1,0 +1,18 @@
+[Unit]
+Description=HTTP Reverse Proxy for Subversion Server
+After=network.target
+
+[Service]
+User=nobody
+Group=nobody
+WorkingDirectory=/
+ExecStart=/usr/local/bin/svnproxy
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGQUIT
+KillMode=process
+Restart=always
+PrivateTmp=true
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
